@@ -22,47 +22,72 @@ public:
     }
 
     bool isPalindrome(ListNode* head) {
-        if(getSize(head)==1 || (getSize(head)==3 && head->val==head->next->next->val))
+        // Time Complexity Error!
+        // if(getSize(head)==1 || (getSize(head)==3 && head->val==head->next->next->val))
+        // return true;
+        // if(head->val!=head->next->val && getSize(head)==2)
+        // return false;
+        // int mid=getSize(head)/2;
+        // stack<int> st;
+        // ListNode* n=head;
+        // if(getSize(head)%2==0)
+        // {
+        //     for(int i=0;i<mid;++i)
+        //     {
+        //         st.push(n->val);
+        //         n=n->next;
+        //     }
+        //     for(int i=mid;i<getSize(head);++i)
+        //     {
+        //         if(st.top()!=n->val)
+        //         {
+        //             return false;
+        //         }
+        //         n=n->next;
+        //         st.pop();
+        //     }
+        // }
+        // else
+        // {
+        //     for(int i=0;i<mid;++i)
+        //     {
+        //         st.push(n->val);
+        //         n=n->next;
+        //     }
+        //     n=n->next;
+        //     for(int i=mid+1;i<getSize(head);++i)
+        //     {
+        //         if(st.top()!=n->val)
+        //         {
+        //             return false;
+        //         }
+        //         n=n->next;
+        //         st.pop();
+        //     }
+        // }
+        // return true;
+        if(head==nullptr || head->next==nullptr)
         return true;
-        if(head->val!=head->next->val && getSize(head)==2)
-        return false;
-        int mid=getSize(head)/2;
+        ListNode* slow=head;
+        ListNode* fast=head;
         stack<int> st;
-        ListNode* n=head;
-        if(getSize(head)%2==0)
+        while(fast!=nullptr && fast->next!=nullptr)
         {
-            for(int i=0;i<mid;++i)
-            {
-                st.push(n->val);
-                n=n->next;
-            }
-            for(int i=mid;i<getSize(head);++i)
-            {
-                if(st.top()!=n->val)
-                {
-                    return false;
-                }
-                n=n->next;
-                st.pop();
-            }
+            st.push(slow->val);
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        else
+        if(fast!=nullptr)
         {
-            for(int i=0;i<mid;++i)
-            {
-                st.push(n->val);
-                n=n->next;
-            }
-            n=n->next;
-            for(int i=mid+1;i<getSize(head);++i)
-            {
-                if(st.top()!=n->val)
-                {
-                    return false;
-                }
-                n=n->next;
-                st.pop();
-            }
+            slow=slow->next;
+        }
+
+        while(slow!=nullptr)
+        {
+            if(st.top()!=slow->val)
+            return false;
+            st.pop();
+            slow=slow->next;
         }
         return true;
     }
