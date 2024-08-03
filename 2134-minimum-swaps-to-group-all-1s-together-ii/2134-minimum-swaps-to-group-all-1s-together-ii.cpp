@@ -8,29 +8,29 @@ public:
             ++totalOnes;
         }
 
-        vector<int> extendedNums(2*nums.size());
+        vector<int> extended(2*nums.size());
         for(int i=0;i<nums.size();++i)
         {
-            extendedNums[i]=nums[i];
-            extendedNums[i+nums.size()]=nums[i];
+            extended[i]=nums[i];
+            extended[i+nums.size()]=nums[i];
         }
 
-        int maxOnesWindow=0,currentOnes=0;
+        int currentOnes=0;
         for(int i=0;i<totalOnes;++i)
         {
-            if(nums[i])
+            if(extended[i])
             ++currentOnes;
         }
-        maxOnesWindow=currentOnes;
+
+        int maxWindow=currentOnes;
         for(int i=totalOnes;i<2*nums.size();++i)
         {
-            if(extendedNums[i])
+            if(extended[i])
             ++currentOnes;
-            if(extendedNums[i-totalOnes])
+            if(extended[i-totalOnes])
             --currentOnes;
-
-            maxOnesWindow=max(maxOnesWindow,currentOnes);
+            maxWindow=max(maxWindow,currentOnes);
         }
-        return totalOnes-maxOnesWindow;
+        return totalOnes-maxWindow;
     }
 };
