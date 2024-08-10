@@ -13,15 +13,18 @@ class Solution {
 public:
     bool findTarget(TreeNode* root, int k) {
         queue<TreeNode*> q;
+        unordered_set<int> seen;
         q.push(root);
         while(!q.empty())
         {
             TreeNode* node=q.front();
             q.pop();
-            if(!node->left || !node->right)
-            return false;
-            if(node->left->val+node->right->val==k)
+
+            if(seen.count(k-node->val))
             return true;
+
+            seen.insert(node->val);
+
             if(node->left)
             q.push(node->left);
             if(node->right)
