@@ -27,5 +27,37 @@ public:
             root->left=insertIntoBST(root->left,val);
         }
         return root;  
+
+        // BFS Approach 
+        // queue<TreeNode*> q;
+        // q.push(root);
+        // while(!q.empty())
+        // {
+        //     TreeNode* node=q.front();
+        //     q.pop();
+
+        //     if(val>node->val)
+        //     {
+        //         if(node->right)
+        //         q.push(node->right);
+        //         else
+        //         {
+        //             node->right=new TreeNode(val);
+        //             return node;
+        //         }
+        //     }
+        //     else if(node->val>val)
+        //     {
+        //         if(node->left)
+        //         q.push(root->left);
+        //         else
+        //         {
+        //             node->left=new TreeNode(val);
+        //             return root;
+        //         }    
+        //     }
+        //     q.push(node->left);
+        // }
+        // return root;
     }
 };
