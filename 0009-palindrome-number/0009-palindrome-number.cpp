@@ -2,7 +2,7 @@ class Solution {
 public:
     bool helper(string s,int n=0)
     {
-        if(n==s.size())
+        if(n==s.size()/2)
         return true;
         if(s[n]!=s[s.size()-n-1])
         {
