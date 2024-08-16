@@ -1,57 +1,37 @@
 class Solution {
 public:
     int myAtoi(string s) {
-        int num=0;
-        int i=0;
-        while(s[i]==' ')
-        {
-            ++i;
-        }
-
         int sign=1;
-        if(s[i]=='+')
+        int i=0;
+        long long int num=0;
+
+        while(i<s.size() && s[i]==' ')
         {
-            sign=1;
-            ++i;
-            if(s[i]==48)
-            ++i;
-        }
-        else if(s[i]=='-')
-        {
-            sign=-1;
-            ++i;
-            if(s[i]==48)
             ++i;
         }
 
-        int k=i;
-        int size=0;
-        while(k<s.size())
+        if(i<s.size() && (s[i]=='+' || s[i]=='-'))
         {
-            if(s[k]>=48 && s[k]<=57)
-            {
-                if(k==i && s[k]==48)
-                {
-                    ++k;
-                    ++i;
-                    continue;
-                }
-                ++size;
-            }
-            else
-            break;
-            ++k;
+            sign=(s[i]=='-') ? -1 : 1;
+            ++i;
         }
-        try
+
+        function<int(int)>helper=[&](int i)->int
         {
-            if(size>0)
-            num=stoi(s.substr(i,size));
-        }
-        catch(out_of_range&)
-        {
-            return sign==1 ? INT_MAX : INT_MIN;
-        }
-        
-        return num*sign;
+            if(i>=s.size() || s[i]<'0' || s[i]>'9')
+            return num*sign;
+
+            num=num*10+(s[i]-'0');
+
+            if(sign==1 && num>INT_MAX)
+            return INT_MAX;
+
+            if(sign==-1 && -num<INT_MIN)
+            return INT_MIN;
+
+            return helper(i+1);
+        };
+
+        return helper(i);
     }
 };
