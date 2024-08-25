@@ -18,26 +18,26 @@ public:
         if(root->left==nullptr && root->right==nullptr)
         return {root->val};
 
-        queue<TreeNode*> q;
-        q.push(root);
-        stack<TreeNode*> st;
-        while(!q.empty())
+        stack<TreeNode*> st1;
+        st1.push(root);
+        stack<TreeNode*> st2;
+        while(!st1.empty())
         {
-            TreeNode* node=q.front();
-            q.pop();
+            TreeNode* node=st1.top();
+            st1.pop();
 
-            st.push(node);
+            st2.push(node);
             if(node->left)
-            q.push(node->left);
+            st1.push(node->left);
             if(node->right)
-            q.push(node->right);
+            st1.push(node->right);
         }
 
         vector<int> nums;
-        while(!st.empty())
+        while(!st2.empty())
         {
-            nums.push_back(st.top()->val);
-            st.pop();
+            nums.push_back(st2.top()->val);
+            st2.pop();
         }
         return nums;
     }
