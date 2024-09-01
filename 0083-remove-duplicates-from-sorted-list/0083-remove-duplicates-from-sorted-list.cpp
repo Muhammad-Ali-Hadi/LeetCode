@@ -10,47 +10,22 @@
  */
 class Solution {
 public:
-    void insertToTail(ListNode* &head,int val)
-    {
-        ListNode* n=new ListNode(val);
-        if(head==nullptr)
-        {
-            head=n;
-            return;
-        }
-        ListNode* ptr=head; 
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==nullptr || head->next==nullptr)
+        return head;
+        
+        ListNode* ptr=head;
         while(ptr->next!=nullptr)
         {
+            if(ptr->val==ptr->next->val)
+            {
+                ListNode* temp=ptr->next;
+                ptr->next=ptr->next->next;
+                delete temp;
+            }
+            else
             ptr=ptr->next;
         }
-        ptr->next=n;
-    }
-
-    int getSize(ListNode* head)
-    {
-        int size=0;
-        while(head!=nullptr)
-        {
-            ++size;
-            head=head->next;
-        }
-        return size;
-    }
-
-    ListNode* deleteDuplicates(ListNode* head) {
-        ListNode* ptr=head;
-        vector<int> nums;
-        for(int i=0;i<getSize(head);++i)
-        {
-            nums.push_back(ptr->val);
-            ptr=ptr->next;
-        }
-        set<int> set(nums.begin(),nums.end());
-        ListNode* list=nullptr;
-        for(auto& i : set)
-        {
-            insertToTail(list,i);
-        }
-        return list;
+        return head;
     }
 };
