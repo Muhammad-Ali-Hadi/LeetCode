@@ -10,17 +10,6 @@
  */
 class Solution {
 public:
-    int getSize(ListNode* head)
-    {
-        int size=0;
-        while(head!=nullptr)
-        {
-            ++size;
-            head=head->next;
-        }
-        return size;
-    }
-
     bool isPalindrome(ListNode* head) {
         // Time Complexity Error!
         // if(getSize(head)==1 || (getSize(head)==3 && head->val==head->next->next->val))
@@ -66,6 +55,8 @@ public:
         //     }
         // }
         // return true;
+
+        // Two Pointer Approach
         if(head==nullptr || head->next==nullptr)
         return true;
         ListNode* slow=head;
