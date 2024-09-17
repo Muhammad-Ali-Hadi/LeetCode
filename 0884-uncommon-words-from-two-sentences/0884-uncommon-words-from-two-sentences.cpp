@@ -2,23 +2,20 @@ class Solution {
 public:
     vector<string> uncommonFromSentences(string s1, string s2) {
         unordered_map<string,int> mp;
-        for(int i=0,j=0;i<=s1.size();++i)
+        function<void(string)>extractWords=[&](string s)
         {
-            if(s1[i]==' ' || i==s1.size())
+            for(int i=0,j=0;i<=s.size();++i)
             {
-                mp[s1.substr(j,i-j)]++;
-                j=i+1;
+                if(s[i]==' ' || i==s.size())
+                {
+                    mp[s.substr(j,i-j)]++;
+                    j=i+1;
+                }
             }
-        }
+        };
 
-        for(int i=0,j=0;i<=s2.size();++i)
-        {
-            if(s2[i]==' ' || i==s2.size())
-            {
-                mp[s2.substr(j,i-j)]++;
-                j=i+1;
-            }
-        }
+        extractWords(s1);
+        extractWords(s2);
 
         vector<string> uncommons;
         for(auto& word : mp)
