@@ -57,29 +57,51 @@ public:
         // return true;
 
         // Two Pointer Approach
-        if(head==nullptr || head->next==nullptr)
-        return true;
-        ListNode* slow=head;
-        ListNode* fast=head;
+        // if(head==nullptr || head->next==nullptr)
+        // return true;
+        // ListNode* slow=head;
+        // ListNode* fast=head;
+        // stack<int> st;
+        // while(fast!=nullptr && fast->next!=nullptr)
+        // {
+        //     st.push(slow->val);
+        //     slow=slow->next;
+        //     fast=fast->next->next;
+        // }
+        // if(fast!=nullptr)
+        // {
+        //     slow=slow->next;
+        // }
+
+        // while(slow!=nullptr)
+        // {
+        //     if(st.top()!=slow->val)
+        //     return false;
+        //     st.pop();
+        //     slow=slow->next;
+        // }
+        // return true;
+
+        // Recursion
         stack<int> st;
-        while(fast!=nullptr && fast->next!=nullptr)
+        ListNode* ptr=head;
+        while(ptr!=nullptr)
         {
-            st.push(slow->val);
-            slow=slow->next;
-            fast=fast->next->next;
-        }
-        if(fast!=nullptr)
-        {
-            slow=slow->next;
+            st.push(ptr->val);
+            ptr=ptr->next;
         }
 
-        while(slow!=nullptr)
+        function<bool(ListNode*)>checkPalindrome=[&](ListNode* head)->bool
         {
-            if(st.top()!=slow->val)
+            if(head==nullptr)
+            return true;
+
+            if(st.top()!=head->val)
             return false;
+
             st.pop();
-            slow=slow->next;
-        }
-        return true;
+            return checkPalindrome(head->next);
+        };
+        return checkPalindrome(head);
     }
 };
