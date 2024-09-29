@@ -10,10 +10,18 @@ public:
     }
     
     void dec(string key) {
-        mp[key]--;
+        if(mp.find(key)!=mp.end())
+        {
+            mp[key]--;
+            if(mp[key]<=0)
+            mp.erase(key);
+        }
     }
     
     string getMaxKey() {
+        if(mp.empty())
+        return "";
+
         int max=INT_MIN;
         string maxKey;
         for(auto& key : mp)
@@ -28,13 +36,16 @@ public:
     }
     
     string getMinKey() {
+        if(mp.empty())
+        return "";
+
         int min=INT_MAX;
         string minKey;
         for(auto& key : mp)
         {
             if(key.second<min)
             {
-                min=key.second;
+                min=key.second; 
                 minKey=key.first;
             }
         }
