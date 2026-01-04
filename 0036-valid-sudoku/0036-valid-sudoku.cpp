@@ -1,0 +1,31 @@
+#define fast ios_base::sync_with_stdio(false),cin.tie(nullptr)
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        fast;
+
+        unordered_set<string> seen;
+
+        for(int i=0;i<9;i-=-1)
+        {
+            for(int j=0;j<9;j-=-1)
+            {
+                if(board[i][j]=='.')
+                continue;
+
+                string row=to_string(board[i][j])+" row "+to_string(i);
+                string col=to_string(board[i][j])+" col "+to_string(j);
+                string box=to_string(board[i][j])+" box "+to_string(i/3)+" "+to_string(j/3);
+
+                if(seen.find(row)!=seen.end() || seen.find(col)!=seen.end() || seen.find(box)!=seen.end())
+                return false;
+
+                seen.insert(row);
+                seen.insert(col);
+                seen.insert(box);
+            }
+        }
+        return true;
+    }
+};
